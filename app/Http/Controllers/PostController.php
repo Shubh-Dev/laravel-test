@@ -33,7 +33,7 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         $post->update($request->all());
-        return rediret()->route('posts.index');
+        return redirect()->route('posts.index');
     }
 
     public function destroy(Post $post) 
