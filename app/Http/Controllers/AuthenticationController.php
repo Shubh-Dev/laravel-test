@@ -22,7 +22,8 @@ class AuthenticationController extends Controller
             'password' =>Hash::make($request->password)
         ]);
 
-        return $this -> generateTokenResponse($user);
+         $tokenResponse = $this->generateTokenResponse($user);
+         return redirect('/dashboard')->with('token', $tokenResponse->getData()->token);
     }
 
      public function login(Request $request) 
@@ -38,12 +39,13 @@ class AuthenticationController extends Controller
                 'message' => 'Bad credentials'
             ], 401);
         }
-        return $this -> generateTokenResponse($user);
+         $tokenResponse = $this->generateTokenResponse($user);
+         return redirect('/dashboard')->with('token', $tokenResponse->getData()->token);
     }
 
      public function logout(Request $request) 
      {
-        $request->user() -> token() -> revoke();
+        $request->user()->token()->revoke();
         return response([
             'message' => 'Successfully logged out'
         ]);

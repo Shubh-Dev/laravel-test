@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\ForgotPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,9 +19,30 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/register', function() {
+Route::get('/api/register', function() {
     return view('auth.register');
 });
 
-//  Route::post('/register', [AuthenticationController::class, 'register']);
-//  Route::post('/login', [AuthenticationController::class, 'login']);
+Route::get('/api/login', function() {
+    return view('auth.login');
+});
+
+Route::get('/dashboard', function() {
+    return view('dashboard');
+});
+
+Route::get('/about', function() {
+    return view('about');
+});
+
+Route::get('/contact', function() {
+    return view('contact');
+});
+
+
+
+Route::get('/forgot-password', [ForgotPasswordController::class, 'showForgotPasswordForm'])->name('forgot-password');
+Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('forgot-password.email');
+Route::post('/reset-password', [ForgotPasswordController::class, 'callResetPassword'])->name('password.update');
+
+
